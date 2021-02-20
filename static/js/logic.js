@@ -16,3 +16,35 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   id: "mapbox/streets-v11",
   accessToken: API_KEY
 }).addTo(myMap);
+
+
+//Ingest data vai D3
+d3.json(url, function(data) {
+  function styleInfo(feature) {
+    return {
+      opacity: 1,
+      fillOpacity: 1,
+      fillColor: getColor(feature.properties.mag),
+      color: "#000000",
+      radius: getRadius(feature.properties.mag),
+      stroke: true,
+      weight: 0.5
+    };
+  }
+  // Colour ramp 
+  function getColor(magnitude) {
+    switch (true) {
+    case magnitude > 5:
+      return "#ea2c2c";
+    case magnitude > 4:
+      return "#b81c1c"; // Dark Red
+    case magnitude > 3:
+      return "#cf811b"; // Dark orange
+    case magnitude > 2:
+      return "#d9ca29"; // orange-yellow
+    case magnitude > 1:
+      return "#1cabb8"; //dark green
+    default:
+      return "#98ee00";
+    }
+  }
