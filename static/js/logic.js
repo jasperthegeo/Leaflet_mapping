@@ -48,3 +48,12 @@ d3.json(url, function(data) {
       return "#98ee00";
     }
   }
+
+    // set radiuss from magnitude
+    function getRadius(magnitude) {
+      if (magnitude === 0) {
+        return 1;
+      }
+
+      
+      
