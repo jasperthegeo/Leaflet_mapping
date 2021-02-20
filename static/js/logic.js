@@ -53,6 +53,26 @@ d3.json(url, function(data) {
     function getRadius(magnitude) {
       if (magnitude === 0) {
         return 0;
-      }
+      }   
+    return Math.sqrt((magnitude+1)**3 * 2.718);
+  }
 
+   // GeoJSON layer
+   L.geoJson(data, {
+    // Make cricles
+    pointToLayer: function(feature, latlng) {
+      return L.circleMarker(latlng);
+    },
+    // circle style
+    style: styleInfo,
+    // popup for each marker
+    onEachFeature: function(feature, layer) {
+      layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
+    }
+  }).addTo(myMap);
+
+  // an object legend
+  var legend = L.control({
+    position: "topleft"
+  });
       
