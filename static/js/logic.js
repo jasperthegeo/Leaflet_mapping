@@ -26,7 +26,7 @@ d3.json(url, function(data) {
       fillOpacity: 0.5,
       fillColor: getColor(feature.properties.mag),
       color: "#000000",
-      radius: getRadius(feature.properties.mag),
+      radius: (feature.properties.mag),
       stroke: true,
       weight: 0.5
     };
@@ -51,10 +51,14 @@ d3.json(url, function(data) {
   // set radius from magnitude
     function getRadius(magnitude) {
     if (magnitude <= 0) {
-      return 0;
+      outputMag=0
+      console.log(magnitude)
+      return outputMag;
     }
-
-    return Math.sqrt((magnitude+1)**2 * 2.718);
+    else{
+      outputMag = Math.sqrt((magnitude+1)**2 * 2.718)
+      return outputMag
+    };
   }
     // GeoJSON layer
     L.geoJson(data, {
