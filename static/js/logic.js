@@ -26,12 +26,13 @@ d3.json(url, function(data) {
       fillOpacity: 0.5,
       fillColor: getColor(feature.properties.mag),
       color: "#000000",
-      radius: (feature.properties.mag),
+      radius: getRadius(feature.properties.mag),
       stroke: true,
-      weight: 0.5
+      weight: 0.75,
+      //strokeopacity="0.5",
     };
   }
-  // set different color from magnitude
+  // Set Magnitude colours
     function getColor(magnitude) {
     switch (true) {
     case magnitude > 5:
@@ -39,7 +40,7 @@ d3.json(url, function(data) {
     case magnitude > 4:
       return "#ea822c";
     case magnitude > 3:
-      return "#ee9c00";
+      return "#f0ec18";
     case magnitude > 2:
       return "#79bf4b";
     case magnitude > 1:
@@ -56,7 +57,7 @@ d3.json(url, function(data) {
       return outputMag;
     }
     else{
-      outputMag = Math.sqrt((magnitude+1)**2 * 2.718)
+      outputMag = Math.sqrt((magnitude+0.5)**2 * 2.718)
       return outputMag
     };
   }
@@ -85,10 +86,10 @@ d3.json(url, function(data) {
   
       var colourRamp = [0, 1, 2, 3, 4, 5];
       var colourList = [
-        "#98ee00",
-        "#d4ee00",
-        "#eecc00",
-        "#ee9c00",
+        "#1cabb8",
+        "#2f7003",
+        "#79bf4b",
+        "#f0ec18",
         "#ea822c",
         "#ea2c2c"
       ];
