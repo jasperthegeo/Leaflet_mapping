@@ -49,11 +49,10 @@ d3.json(url, function(data) {
     }
   }
 
-    // set radiuss from magnitude
+    // set radius from magnitude
     function getRadius(magnitude) {
       if (magnitude === 0) {
-        return 1;
+        return 0;
       }
 
-      
       
