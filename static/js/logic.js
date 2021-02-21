@@ -14,24 +14,28 @@ L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_toke
   accessToken: API_KEY
 }).addTo(myMap);
 
-//Store url
+//USGS Data
 var url = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_month.geojson"
 
-
-// Grab the data with d3
+// Ingest and filter data
 d3.json(url, function(data) {
+
+  data.features = data.features.filter(feature => feature.properties.mag > 0)
+
   function styleInfo(feature) {
+    console.log("TEST: " + feature.properties.mag)
     return {
       opacity: 1,
       fillOpacity: 0.5,
       fillColor: getColor(feature.properties.mag),
       color: "#000000",
-      radius: getRadius(feature.properties.mag),
+      radius: (Math.sqrt((feature.properties.mag)**3 * 2.718)),
       stroke: true,
       weight: 0.75,
       //strokeopacity="0.5",
     };
   }
+  
   // Set Magnitude colours
     function getColor(magnitude) {
     switch (true) {
@@ -49,18 +53,8 @@ d3.json(url, function(data) {
       return "#1cabb8";
     }
   }
-  // set radius from magnitude
-    function getRadius(magnitude) {
-    if (magnitude <= 0) {
-      outputMag=0
-      console.log(magnitude)
-      return outputMag;
-    }
-    else{
-      outputMag = Math.sqrt((magnitude+0.5)**2 * 2.718)
-      return outputMag
-    };
-  }
+
+
     // GeoJSON layer
     L.geoJson(data, {
       // Make cricles
